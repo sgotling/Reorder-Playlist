@@ -1,0 +1,9 @@
+<h2>{{setListCtrl.selectedSetList.title}}</h2>
+
+<div ui-sortable="sortableOptions" class="connected-drop-target-sortable" ng-model="selectedComponents" style="min-height:100px; background-color:">
+	<div class="app" ng-repeat="component in selectedComponents track by $index" ng-dblclick="remove(selectedComponents, $index)">{{component.title}}</div>
+</div>
+
+
+
+      

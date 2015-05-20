@@ -1,0 +1,12 @@
+</br>
+<h2>Set Lists</h2>
+
+<form class="simple-form">
+<input placeholder="Title of set list" ng-model="newSetlist">
+<br/>
+<input type="submit" ng-click="createNewSetList(newSetlist)" value="Create new set list">
+
+</form>
+<div ng-repeat="setList in songLists.setLists" ng-click="changeSetList(setList)">
+	{{setList.title}}
+</div>

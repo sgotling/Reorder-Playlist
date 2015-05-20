@@ -1,18 +1,19 @@
 
-var newProjectApp = angular.module('newProject', ['ngRoute','ngResource']);
+var reorderPlaylistApp = angular.module('reorderPlaylist', ['ngRoute','ngResource', 'firebase', 'ui.sortable']);
 
 
-newProjectApp.config(['$routeProvider',
+reorderPlaylistApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
-      .when('/view1', {
-        templateUrl: 'partials/view1.html',
-        controller: 'view1Ctrl'
+      .when('/setList', {
+        templateUrl: 'partials/setList.html',
+        controller: 'setListCtrl'
       })
-      .when('/view2', {
-        templateUrl: 'partials/view2.html'
+      .when('/test', {
+        templateUrl: 'partials/test.html',
+        controller: 'testCtrl'
       })
       .otherwise({
-        redirectTo: '/view1'
+        redirectTo: '/setList'
       });
   }]);

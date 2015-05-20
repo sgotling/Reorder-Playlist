@@ -1,0 +1,13 @@
+<h2>All Songs</h2>
+<form class="simple-form">
+<input placeholder="Song title" ng-model="newSong">
+<br/>
+<input type="submit" ng-click="addSong(newSong)" value="Add New Song">
+</form>
+	<div>
+		<div ui-sortable="draggableOptions" class="draggable-element-container"
+		ng-repeat="draggableArray in draggables track by $index"
+		ng-model="draggableArray">
+		  <div ng-repeat="draggable in draggableArray" class="app">{{draggable.title}}</div>
+	</div>
+</div>
