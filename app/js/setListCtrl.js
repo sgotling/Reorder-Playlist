@@ -16,8 +16,15 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
   var songListsObject = $firebaseObject(ref);
   $scope.songLists;
   songListsObject.$bindTo($scope, "songLists").then(function () {
-  	$scope.selectedComponents = $rootScope.setListCtrlGlobal.selectedSetList.songs; //Song in the selected set list.
-    $rootScope.setListCtrlGlobal.updateCopyable() //This must be set in this callback function. Otherwise the view wont find the list
+  	$scope.selectedComponents = $rootScope.setListCtrlGlobal.selectedSetList.songs; //Songs in the selected set list.
+    if ($scope.songLists.allSongs == undefined) {
+        $scope.songLists.allSongs = []
+    };
+    if ($scope.songLists.setLists == undefined) {
+        $scope.songLists.setLists = []
+    };
+      $rootScope.setListCtrlGlobal.updateCopyable() //This must be set in this callback function. Otherwise the view wont find the list
+
   });
 
   $scope.setListCtrlGlobal.hej=function (argument) {
@@ -25,8 +32,13 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
   }
 
   $scope.addSong = function (newSong) {
-  	$scope.songLists.allSongs.push({title:newSong})
-    $rootScope.setListCtrlGlobal.updateCopyable() //Updates the view
+    if (newSong == undefined || newSong == "") {}
+    else{
+      $scope.songLists.allSongs.push({title:newSong})
+      $rootScope.setListCtrlGlobal.updateCopyable() //Updates the view
+
+    }
+  	
   }
 
   $scope.switchSelectedSetList = function (setList) {
@@ -36,22 +48,39 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
       }
     $rootScope.setListCtrlGlobal.selectedSetList = setList;
     $scope.selectedComponents = setList.songs
+    // setList=""
   }
 
   $scope.createNewSetList = function (newSetList) {
-    $scope.songLists.setLists.push({title:newSetList})
+    if (newSetList == undefined || newSetList == "") {
+    }
+    else{
+      $scope.songLists.setLists.push({title:newSetList})
+    }
   }
 
   $scope.remove = function (list, index) { // används nog inte just nu...
     list.splice(index, 1)
   }
+
   $scope.setListCtrlGlobal.removeSetList = function (index) {
-    $scope.songLists.setLists.splice(index, 1)
+    var a = confirm("Are you sure that you want to remove this set list?")
+    if (a == true) {
+    var list = $scope.songLists.setLists.splice(index, 1)
+    console.log(list)
+    console.log($rootScope.setListCtrlGlobal.selectedSetList)
+
+      if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
+        $rootScope.setListCtrlGlobal.selectedSetList = undefined;
+      };
+    };
   }
   $scope.setListCtrlGlobal.removeSongFromAllSongs = function (index) {
-    // alert(index)
-    $scope.songLists.allSongs.splice(index, 1)
-    $rootScope.setListCtrlGlobal.updateCopyable()
+    var a = confirm("Are you sure that you want to remove this song?")
+    if (a == true) {
+      $scope.songLists.allSongs.splice(index, 1)
+      $rootScope.setListCtrlGlobal.updateCopyable()
+    };
   }
 
   $scope.setListCtrlGlobal.updateCopyable = function () { //Detta suger att man måste göra... Listan kommer nu inte att uppdatera direkt vid ändringar i FB

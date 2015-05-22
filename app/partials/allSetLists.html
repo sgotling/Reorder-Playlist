@@ -4,9 +4,9 @@
 <form class="simple-form">
 <input placeholder="Title of set list" ng-model="newSetlist">
 <br/>
-<input type="submit" ng-click="createNewSetList(newSetlist)" value="Create new set list">
+<input type="submit" ng-click="createNewSetList(newSetlist); newSetlist=''" value="Create new set list">
 
 </form>
-<div ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList)" ng-dblclick="setListCtrlGlobal.removeSetList($index)">
+<div ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList)" ng-dblclick="setListCtrlGlobal.removeSetList($index);">
 	{{setList.title}}
 </div>
