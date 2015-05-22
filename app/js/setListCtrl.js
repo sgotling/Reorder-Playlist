@@ -20,6 +20,9 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     $rootScope.setListCtrlGlobal.updateCopyable() //This must be set in this callback function. Otherwise the view wont find the list
   });
 
+  $scope.setListCtrlGlobal.hej=function (argument) {
+    alert()
+  }
 
   $scope.addSong = function (newSong) {
   	$scope.songLists.allSongs.push({title:newSong})
@@ -42,8 +45,16 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
   $scope.remove = function (list, index) { // används nog inte just nu...
     list.splice(index, 1)
   }
+  $scope.setListCtrlGlobal.removeSetList = function (index) {
+    $scope.songLists.setLists.splice(index, 1)
+  }
+  $scope.setListCtrlGlobal.removeSongFromAllSongs = function (index) {
+    // alert(index)
+    $scope.songLists.allSongs.splice(index, 1)
+    $rootScope.setListCtrlGlobal.updateCopyable()
+  }
 
-  $rootScope.setListCtrlGlobal.updateCopyable = function () { //Detta suger att man måste göra... Listan kommer nu inte att uppdatera direkt vid ändringar i FB
+  $scope.setListCtrlGlobal.updateCopyable = function () { //Detta suger att man måste göra... Listan kommer nu inte att uppdatera direkt vid ändringar i FB
     var originalcopyable = $scope.songLists.allSongs 
     $rootScope.setListCtrlGlobal.copyable = originalcopyable.map(function(x){ //Every copyable object needs to be in a unique list for the drop event handler
       return [x];

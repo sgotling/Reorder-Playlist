@@ -7,7 +7,7 @@
 	<div>
 		<div ui-sortable="draggableOptions" class="draggable-element-container"
 		ng-repeat="draggableArray in setListCtrlGlobal.copyable track by $index"
-		ng-model="draggableArray">
+		ng-model="draggableArray" ng-dblclick="setListCtrlGlobal.removeSongFromAllSongs($index)">
 		  <div ng-repeat="draggable in draggableArray" class="app">{{draggable.title}}</div>
 	</div>
 </div>
