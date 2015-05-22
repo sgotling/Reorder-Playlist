@@ -6,7 +6,7 @@
 </form>
 	<div>
 		<div ui-sortable="draggableOptions" class="draggable-element-container"
-		ng-repeat="draggableArray in draggables track by $index"
+		ng-repeat="draggableArray in setListCtrlGlobal.copyable track by $index"
 		ng-model="draggableArray">
 		  <div ng-repeat="draggable in draggableArray" class="app">{{draggable.title}}</div>
 	</div>

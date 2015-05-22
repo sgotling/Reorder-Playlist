@@ -1,25 +1,26 @@
-reorderPlaylistApp.controller('testCtrl', function ($scope, $firebaseObject) {
-
-  $scope.availableFields = [{country: "France"}, {country: "Spain"}, {country: "Italy"}, {country: "Germany"}, {country: "Belgium"}, {country: "Netherlands"}];
-  
+reorderPlaylistApp.controller('sortableCtrl', function ($scope, $rootScope) {
+  //Selected set list
+  $scope.dragging = false; //Hides the drop to remove area
   $scope.dropzoneFields = [];
+
   
-  $scope.dragging = false;
-  
-  $scope.draggable = {
-        connectWith: ".dropzone",
+  $scope.sortableOptions = {
+    connectWith: ".dropzone",
         start: function (e, ui) {
             $scope.$apply(function() {
-              $scope.dragging = true
+              $scope.dragging = true //Shows the drop to remove area
             });
             $('.dropzone').sortable('refresh');
         },
         update: function (e, ui) {
-            if (ui.item.sortable.droptarget[0].classList[0] !== "dropzone")
-                ui.item.sortable.cancel();
+            if ($rootScope.copyableCtrlGlobal.draggingObjectIsFromAllSongs === true){
+            //To prevent the object from being removed from the original list.
+            ui.item.sortable.cancel();
+            }
+            $rootScope.copyableCtrlGlobal.draggingObjectIsFromAllSongs = false;
+            
         },
         stop: function (e, ui) {
-            
             if (ui.item.sortable.droptarget == undefined) {
                 $scope.$apply($scope.dragging = false);
                 return;
@@ -29,9 +30,15 @@ reorderPlaylistApp.controller('testCtrl', function ($scope, $firebaseObject) {
             }else{
               $scope.$apply($scope.dragging = false);
             }
-          
-            
         }
-    };
-
+  };
 });
+
+
+
+
+
+
+
+
+
