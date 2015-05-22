@@ -7,6 +7,6 @@
 <input type="submit" ng-click="createNewSetList(newSetlist); newSetlist=''" value="Create new set list">
 
 </form>
-<div ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList)" ng-dblclick="setListCtrlGlobal.removeSetList($index);">
+<div ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList, $index)">
 	{{setList.title}}
 </div>

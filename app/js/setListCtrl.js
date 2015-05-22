@@ -1,6 +1,6 @@
 // 
-// Ta bort set list
-// Ta bort låt helt
+// 
+// 
 // 
 reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $firebaseObject) {
 //setListCtrl
@@ -24,31 +24,55 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
         $scope.songLists.setLists = []
     };
       $rootScope.setListCtrlGlobal.updateCopyable() //This must be set in this callback function. Otherwise the view wont find the list
-
   });
+
+  // $scope.selectedSetListEditable = true;
 
   $scope.setListCtrlGlobal.hej=function (argument) {
     alert()
   }
 
   $scope.addSong = function (newSong) {
+
     if (newSong == undefined || newSong == "") {}
     else{
       $scope.songLists.allSongs.push({title:newSong})
+      $scope.songLists.allSongs.sort(compare)
       $rootScope.setListCtrlGlobal.updateCopyable() //Updates the view
 
     }
   	
   }
 
-  $scope.switchSelectedSetList = function (setList) {
+  $scope.addSongToSelectedPlayList = function (newSong) {
+    if ($rootScope.setListCtrlGlobal.selectedSetList.songs == undefined) {
+      $rootScope.setListCtrlGlobal.selectedSetList.songs = []
+    };
+    if ($scope.setListCtrlGlobal.editable == true) {
+      console.log($rootScope.setListCtrlGlobal.selectedSetList.songs)
+      $rootScope.setListCtrlGlobal.selectedSetList.songs.push(newSong);
+    };
+    
+  }
+
+  $scope.switchSelectedSetList = function (setList, index) {
     if(setList.songs == undefined){
       //Firebase will remove propety songs if it is empty.
         setList.songs = []  
       }
+
     $rootScope.setListCtrlGlobal.selectedSetList = setList;
     $scope.selectedComponents = setList.songs
-    // setList=""
+    $rootScope.setListCtrlGlobal.selectedSetList.index = index;
+    $rootScope.setListCtrlGlobal.editable = false;
+  }
+
+  function compare(a,b) {
+    if (a.title < b.title)
+      return -1;
+    if (a.title > b.title)
+      return 1;
+    return 0;
   }
 
   $scope.createNewSetList = function (newSetList) {
@@ -68,20 +92,24 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     list.splice(index, 1)
   }
 
-  $scope.setListCtrlGlobal.removeSetList = function (index) {
+  $scope.removeSetList = function (index) {
     // console.log($scope.setLists)
 
     var a = confirm("Are you sure that you want to remove this set list?")
     if (a == true) {
-    var list = $scope.songLists.setLists.splice(index, 1)
+    // var list = $scope.songLists.setLists.splice(index, 1)
+      $rootScope.setListCtrlGlobal.selectedSetList.title = ""; //Firebase will remove a empty object
+      $rootScope.setListCtrlGlobal.selectedSetList.songs = "";
+      $rootScope.setListCtrlGlobal.selectedSetList = "";
+      $scope.setListCtrlGlobal.editable = false
     // console.log(list)
-      if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
-        $rootScope.setListCtrlGlobal.selectedSetList = undefined;
-      };
+      // if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
+      //   $rootScope.setListCtrlGlobal.selectedSetList = undefined;
+      // };
     };
     // console.log($scope.setLists)
   }
-  $scope.setListCtrlGlobal.removeSongFromAllSongs = function (index) {
+  $scope.removeSongFromAllSongs = function (index) {
     var a = confirm("Are you sure that you want to remove this song?")
     if (a == true) {
       $scope.songLists.allSongs.splice(index, 1)

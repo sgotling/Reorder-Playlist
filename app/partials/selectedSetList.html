@@ -1,9 +1,16 @@
-<h2>{{setListCtrlGlobal.selectedSetList.title}}</h2>
 
-<div ui-sortable="sortableOptions" class="connected-drop-target-sortable" ng-model="selectedComponents" style="min-height:100px; background-color:">
-	<div class="app" ng-repeat="component in selectedComponents track by $index" ">{{component.title}}</div>
+
+<div ng-show="setListCtrlGlobal.editable">
+	<h2>{{setListCtrlGlobal.selectedSetList.title}}</h2>
+	<span ng-click="setListCtrlGlobal.editable=false" class="glyphicon glyphicon-ok edit-icon" aria-hidden="true"></span>
+	<span ng-click="removeSetList($index)"class="glyphicon glyphicon-trash edit-icon" aria-hidden="true"></span>
+	<div ui-sortable="sortableOptions" class="connected-drop-target-sortable" ng-model="selectedComponents" style="min-height:100px; background-color:">
+		<div class="app" ng-repeat="component in selectedComponents track by $index">{{$index + 1}}. {{component.title}}</div>
+	</div>
 </div>
 
-
-
-      
+<div ng-hide="setListCtrlGlobal.editable">
+	<h2>{{setListCtrlGlobal.selectedSetList.title}}</h2>
+	<span ng-click="setListCtrlGlobal.editable=true" ng-show="setListCtrlGlobal.selectedSetList" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+	<div ng-repeat="component in setListCtrlGlobal.selectedSetList.songs track by $index">{{$index + 1}}. {{component.title}}</div>
+</div>
