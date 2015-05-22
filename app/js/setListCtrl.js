@@ -52,6 +52,11 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
   }
 
   $scope.createNewSetList = function (newSetList) {
+    console.log($scope.songLists)
+
+    if ($scope.songLists.setLists == undefined) {
+      $scope.songLists.setLists = []
+    };
     if (newSetList == undefined || newSetList == "") {
     }
     else{
@@ -64,16 +69,17 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
   }
 
   $scope.setListCtrlGlobal.removeSetList = function (index) {
+    // console.log($scope.setLists)
+
     var a = confirm("Are you sure that you want to remove this set list?")
     if (a == true) {
     var list = $scope.songLists.setLists.splice(index, 1)
-    console.log(list)
-    console.log($rootScope.setListCtrlGlobal.selectedSetList)
-
+    // console.log(list)
       if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
         $rootScope.setListCtrlGlobal.selectedSetList = undefined;
       };
     };
+    // console.log($scope.setLists)
   }
   $scope.setListCtrlGlobal.removeSongFromAllSongs = function (index) {
     var a = confirm("Are you sure that you want to remove this song?")
