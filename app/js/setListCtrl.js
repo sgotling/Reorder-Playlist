@@ -1,6 +1,6 @@
 // 
-// 
-// 
+// OBS removeSetList tar inte bort något i FB!!!!
+// Lös Problemet i allSongs
 // 
 reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $firebaseObject) {
 //setListCtrl
@@ -26,13 +26,12 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
       $rootScope.setListCtrlGlobal.updateCopyable() //This must be set in this callback function. Otherwise the view wont find the list
   });
 
-  // $scope.selectedSetListEditable = true;
 
-  $scope.setListCtrlGlobal.hej=function (argument) {
+  $scope.hej=function (argument) {
     alert()
   }
 
-  $scope.addSong = function (newSong) {
+  $scope.addSongToAllSongs = function (newSong) {
 
     if (newSong == undefined || newSong == "") {}
     else{
@@ -55,17 +54,6 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     
   }
 
-  $scope.switchSelectedSetList = function (setList, index) {
-    if(setList.songs == undefined){
-      //Firebase will remove propety songs if it is empty.
-        setList.songs = []  
-      }
-
-    $rootScope.setListCtrlGlobal.selectedSetList = setList;
-    $scope.selectedComponents = setList.songs
-    $rootScope.setListCtrlGlobal.selectedSetList.index = index;
-    $rootScope.setListCtrlGlobal.editable = false;
-  }
 
   function compare(a,b) {
     if (a.title < b.title)
@@ -97,16 +85,13 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
 
     var a = confirm("Are you sure that you want to remove this set list?")
     if (a == true) {
-    // var list = $scope.songLists.setLists.splice(index, 1)
-      $rootScope.setListCtrlGlobal.selectedSetList.title = ""; //Firebase will remove a empty object
-      $rootScope.setListCtrlGlobal.selectedSetList.songs = "";
-      $rootScope.setListCtrlGlobal.selectedSetList = "";
-      $scope.setListCtrlGlobal.editable = false
-    // console.log(list)
-      // if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
-      //   $rootScope.setListCtrlGlobal.selectedSetList = undefined;
-      // };
+    var list = $scope.songLists.setLists.splice(index, 1)
+    console.log(list)
+      if (list[0] == $rootScope.setListCtrlGlobal.selectedSetList) {
+        $rootScope.setListCtrlGlobal.selectedSetList = undefined;
+      };
     };
+    $scope.setListCtrlGlobal.editable = false
     // console.log($scope.setLists)
   }
   $scope.removeSongFromAllSongs = function (index) {
@@ -116,7 +101,24 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
       $rootScope.setListCtrlGlobal.updateCopyable()
     };
   }
+  $scope.switchSelectedSetList = function (setList, index) {
+    if(setList.songs == undefined){
+      //Firebase will remove propety songs if it is empty.
+        setList.songs = []  
+      }
+    $rootScope.setListCtrlGlobal.selectedSetList = setList;
+    $scope.selectedComponents = setList.songs
+    $rootScope.setListCtrlGlobal.selectedSetList.index = index;
+    $rootScope.setListCtrlGlobal.editable = false;
+  }
 
+  $scope.testIfUntitled = function (input, type) {
+    if (input == "") {
+      input = "Untitled " + type;
+      $rootScope.setListCtrlGlobal.selectedSetList.title = input;
+      
+    };
+  }
   $scope.setListCtrlGlobal.updateCopyable = function () { //Detta suger att man måste göra... Listan kommer nu inte att uppdatera direkt vid ändringar i FB
     var originalcopyable = $scope.songLists.allSongs 
     $rootScope.setListCtrlGlobal.copyable = originalcopyable.map(function(x){ //Every copyable object needs to be in a unique list for the drop event handler

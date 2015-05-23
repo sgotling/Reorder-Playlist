@@ -1,9 +1,14 @@
 
 
 <div ng-show="setListCtrlGlobal.editable">
+
 	<h2>{{setListCtrlGlobal.selectedSetList.title}}</h2>
+	<form class="simple-form">
+		<input placeholder="Title of set list" ng-model="setListCtrlGlobal.selectedSetList.title" ng-blur="testIfUntitled(setListCtrlGlobal.selectedSetList.title, 'set list')">
+		<br/>
+	</form>
 	<span ng-click="setListCtrlGlobal.editable=false" class="glyphicon glyphicon-ok edit-icon" aria-hidden="true"></span>
-	<span ng-click="removeSetList($index)"class="glyphicon glyphicon-trash edit-icon" aria-hidden="true"></span>
+	Drag or double click on songs
 	<div ui-sortable="sortableOptions" class="connected-drop-target-sortable" ng-model="selectedComponents" style="min-height:100px; background-color:">
 		<div class="app" ng-repeat="component in selectedComponents track by $index">{{$index + 1}}. {{component.title}}</div>
 	</div>
