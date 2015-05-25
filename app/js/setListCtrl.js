@@ -47,7 +47,7 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     if ($rootScope.setListCtrlGlobal.selectedSetList.songs == undefined) {
       $rootScope.setListCtrlGlobal.selectedSetList.songs = []
     };
-    if ($scope.setListCtrlGlobal.editable == true) {
+    if ($scope.setListCtrlGlobal.editSelectedSetList == true) {
       console.log($rootScope.setListCtrlGlobal.selectedSetList.songs)
       $rootScope.setListCtrlGlobal.selectedSetList.songs.push(newSong);
     };
@@ -91,7 +91,7 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
         $rootScope.setListCtrlGlobal.selectedSetList = undefined;
       };
     };
-    $scope.setListCtrlGlobal.editable = false
+    $scope.setListCtrlGlobal.editSelectedSetList = false
     // console.log($scope.setLists)
   }
   $scope.removeSongFromAllSongs = function (index) {
@@ -109,7 +109,8 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     $rootScope.setListCtrlGlobal.selectedSetList = setList;
     $scope.selectedComponents = setList.songs
     $rootScope.setListCtrlGlobal.selectedSetList.index = index;
-    $rootScope.setListCtrlGlobal.editable = false;
+    $rootScope.setListCtrlGlobal.editSelectedSetList = false;
+    $rootScope.setListCtrlGlobal.hideSet = true;
   }
 
   $scope.testIfUntitled = function (input, type) {

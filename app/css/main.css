@@ -1,19 +1,61 @@
+
+@media only screen and (max-width: 1026px) {
+    .big-screen {
+        display: none;
+    }
+    .small-screen {
+        display: auto;
+    }
+    .responsive-size {
+    /*  height: 70px;
+      overflow: scroll*/;
+
+    }
+    .copyable{
+      display:inline-block;
+      margin-right: 10px;
+      margin-left: 10px;
+      
+    }
+
+    .copyable-content{
+      overflow-x:scroll;
+      /*height: 70px;*/
+      white-space: nowrap;
+      /*max-width: 80%;*/
+    }
+
+
+}
+@media only screen and (min-width: 1026px) {
+    .small-screen {
+        display: none;
+    }
+
+
+}
+
+html {
+     overflow: -moz-scrollbars-vertical;
+     overflow: scroll;
+}
+
 .dropzone {
   position: fixed;
-  bottom:0;
+  top:0;
   width: 100%;
   padding: 14px;
   border: 2px dashed grey;
   border-radius: 5px;
-  font-size: 60px;
-  height: 100px;
+  font-size: 40px;
+  height: 180pt;
   color: grey;
   text-align: center; 
 }
 
 .dropzone:after {
   content: 'remove song';
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   left: 0;
@@ -23,3 +65,30 @@
 .edit-icon{
   margin-right: 20px
 }
+.handle{
+  float: right;
+  margin-left: 10px;
+}
+
+.close{
+/*  padding:10px;
+  margin: 10px;
+  float: left;*/
+}
+
+.selectedSetList{
+  /*height: 100*/
+}
+
+.sortable {
+  max-height: 200pt;
+  /*max-width: 50pt;*/
+  overflow: scroll;
+}
+
+.top-margin {
+  margin-top: 180pt;
+}
+
+
+

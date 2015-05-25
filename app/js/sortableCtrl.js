@@ -11,6 +11,8 @@ reorderPlaylistApp.controller('sortableCtrl', function ($scope, $rootScope) {
               $scope.dragging = true //Shows the drop to remove area
             });
             $('.dropzone').sortable('refresh');
+            $( ".allSongs" ).hide();
+            $( ".selectedSetList" ).addClass("top-margin");
         },
         update: function (e, ui) {
             if ($rootScope.copyableCtrlGlobal.draggingObjectIsFromAllSongs === true){
@@ -18,9 +20,13 @@ reorderPlaylistApp.controller('sortableCtrl', function ($scope, $rootScope) {
             ui.item.sortable.cancel();
             }
             $rootScope.copyableCtrlGlobal.draggingObjectIsFromAllSongs = false;
+            $( ".allSongs" ).show();
+            $( ".selectedSetList" ).removeClass("top-margin");
             
         },
         stop: function (e, ui) {
+          $( ".allSongs" ).show();
+            $( ".selectedSetList" ).removeClass("top-margin");
             if (ui.item.sortable.droptarget == undefined) {
                 $scope.$apply($scope.dragging = false);
                 return;
@@ -30,6 +36,8 @@ reorderPlaylistApp.controller('sortableCtrl', function ($scope, $rootScope) {
             }else{
               $scope.$apply($scope.dragging = false);
             }
+            
+
         }
   };
 });

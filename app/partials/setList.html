@@ -1,8 +1,13 @@
 
+
+<!-- <div class="col-xs-12"> -->
+  <div ng-show="setListCtrlGlobal.hideSet" ng-click="setListCtrlGlobal.hideSet=false; setListCtrlGlobal.selectedSetList=undefined; setListCtrlGlobal.editSelectedSetList=false" class="glyphicon glyphicon-remove close" aria-hidden="true"></div>
+<!-- </div> -->
 <div ng-controller="copyableCtrl">
   <div class="col-sm-6">
     <ng-include src="'partials/allsetLists.html'"></ng-include>
     <ng-include src="'partials/allSongs.html'"></ng-include>
+
   </div>
 </div>
 
