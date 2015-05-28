@@ -63,6 +63,17 @@ reorderPlaylistApp.controller('setListCtrl', function ($scope, $rootScope, $fire
     return 0;
   }
 
+    $scope.class="";
+    $scope.changeClass = function () {  //Not used right now...
+      alert()
+      if($scope.class==""){
+        $scope.class="app"
+      }
+      else{
+        $scope.class=""
+      }
+    }
+
   $scope.createNewSetList = function (newSetList) {
     console.log($scope.songLists)
 

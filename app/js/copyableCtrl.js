@@ -7,8 +7,9 @@ reorderPlaylistApp.controller('copyableCtrl', function ($scope, $rootScope) {
 
   $scope.draggableOptions = {
     connectWith: ".connected-drop-target-sortable",
+    draggable: false,
     start: function (e, ui) {
-      $rootScope.setListCtrlGlobal.updateCopyable() //For some reason this is needed because the element will sometimes be removed from the copyable list.  
+      $rootScope.setListCtrlGlobal.updateCopyable() //For some reason this is needed because the element will sometimes be removed from the copyable list.
     },
     update: function (e, ui) {
       if($rootScope.setListCtrlGlobal.selectedSetList == "" || $rootScope.setListCtrlGlobal.selectedSetList == undefined){ 
@@ -20,6 +21,8 @@ reorderPlaylistApp.controller('copyableCtrl', function ($scope, $rootScope) {
     stop: function (e, ui) {
     }
   };
+
+
 
 });
 
