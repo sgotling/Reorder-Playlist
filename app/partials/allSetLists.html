@@ -8,7 +8,7 @@
 <br/>
 <input type="submit" ng-click="createNewSetList(newSetlist); newSetlist=''" value="Create new set list">
 </form>
-<div ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList, $index)">
+<div class="clickable" ng-repeat="setList in songLists.setLists" ng-click="switchSelectedSetList(setList, $index)">
 	<span ng-click="removeSetList($index)" ng-show="editSetLists" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 	{{setList.title}}
 </div>
